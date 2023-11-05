@@ -1,0 +1,48 @@
+spring:
+  datasource: # mysql配置
+    url: jdbc:mysql://127.0.0.1:3306/ts_bdth?useUnicode=true&tinyInt1isBit=false&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+    username: root
+    password: 123
+  # 邮箱
+  mail:
+    host: smtp.qq.com
+    username: 2074055628@qq.com
+    password: ''
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+    port: 587
+
+
+  data:
+    redis: # redis配置
+      database: 0  # Redis数据库索引
+      host: 127.0.0.1   # Redis服务器地址
+      password: 123
+      port: 6379  # Redis服务器连接端口
+
+  cloud: # 注册中心配置
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
+
+# 微信配置
+we-chat:
+  # APPID
+  appId: ''
+  # 密钥
+  secret: ''
+  # 是否隐藏小程序主页面
+  WechatAppMain: false
+  # 小程序环境 (develop开发板 trial体验版 release正式版)
+  env: release
+
+thread:
+  pool: # 开启线程池支持
+    enable: true
+
