@@ -55,6 +55,7 @@ const handleLogin = async () => {
       type: "success",
     });
     emits('on-close');
+    location.reload();
   } catch (e) {
     btnLoad.value = false
   }

@@ -22,15 +22,14 @@ public class TsUser {
 
     private String openId;
 
-    private String nickName;
-
     private String email;
 
     private String type;
 
     private String password;
 
-    private Integer avatarId;
+    private String avatarUrl;
+
 
     private Integer frequency;
 

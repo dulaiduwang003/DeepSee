@@ -1,14 +1,12 @@
 <template>
   <div class="body">
-    <content-components/>
-    <chat-record-components/>
+    <content-view/>
   </div>
 </template>
 
 <script setup>
 
-import ContentComponents from "@/views/index/components/ContentComponents.vue";
-import ChatRecordComponents from "@/views/index/components/ChatRecordComponents.vue";
+import ContentView from "@/views/index/view/ContentView.vue";
 </script>
 
 <style scoped>

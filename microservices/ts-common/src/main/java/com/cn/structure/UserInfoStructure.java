@@ -20,7 +20,7 @@ public class UserInfoStructure implements Serializable {
 
     private String email;
 
-    private String avatar;
+    private String avatarUrl;
 
     private String type;
 

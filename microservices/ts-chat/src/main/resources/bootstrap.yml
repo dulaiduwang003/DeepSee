@@ -1,0 +1,21 @@
+spring:
+  cloud: # 注册中心配置
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        shared-configs[0]:
+          data-id: base-config.yml
+          group: DEFAULT_GROUP
+          refresh: true
+        shared-configs[1]:
+          data-id: redis-config.yml
+          group: DEFAULT_GROUP
+          refresh: true
+        shared-configs[2]:
+          data-id: mysql-config.yml
+          group: DEFAULT_GROUP
+          refresh: true
+        shared-configs[3]:
+          data-id: chat-config.yml
+          group: DEFAULT_GROUP

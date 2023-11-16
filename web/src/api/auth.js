@@ -48,3 +48,4 @@ export function getCurrentUserInfo() {
         url: '/auth-api/user/get/userinfo', method: 'GET'
     })
 }
+

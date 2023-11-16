@@ -1,6 +1,5 @@
 package com.cn.service;
 
-import com.cn.dto.AddModelDto;
 import com.cn.vo.ModelVo;
 
 import java.util.List;
@@ -16,22 +15,8 @@ public interface ModelService {
      *
      * @return the list of models
      */
-    List<ModelVo> getListOfModels();
+    List<ModelVo> getModelList();
 
 
-    /**
-     * Add a model.
-     *
-     * @param dto the dto
-     */
-    void addAModel(final AddModelDto dto);
-
-
-    /**
-     * removes the model based on coordinates
-     *
-     * @param index the index
-     */
-    void delAModel(final Integer index);
 
 }

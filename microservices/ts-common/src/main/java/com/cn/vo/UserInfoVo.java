@@ -9,7 +9,7 @@ public class UserInfoVo {
 
     private String nickName;
 
-    private String avatar;
+    private String avatarUrl;
 
     private String type;
 

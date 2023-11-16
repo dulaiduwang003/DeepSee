@@ -1,7 +1,9 @@
 package com.cn.net;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cn.constants.ChatConstant;
 import com.cn.enums.EnvEnum;
+import com.cn.exception.CloseException;
 import com.cn.model.ChatGptModel;
 import com.cn.service.impl.ChatGptServiceFlux;
 import com.cn.utils.ChatGptUtil;
@@ -55,7 +57,6 @@ public class ChatGptNet {
      */
     @OnMessage
     public void onMessage(final String message, final @PathParam("index") Integer index, final @PathParam("env") String env) {
-        System.out.println(message);
         final List<ChatGptModel.Messages> messages = JSONObject.parseArray(message, ChatGptModel.Messages.class);
 
         final ChatGptServiceFlux.FluxOutcome action = chatGptServiceFlux.action(new ChatGptModel().setMessages(messages), index, EnvEnum.fromString(env));
@@ -65,11 +66,21 @@ public class ChatGptNet {
                     final String dataed = chatGptUtil.dataParsing(data);
                     try {
                         this.session.getBasicRemote().sendText(dataed);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    } catch (Exception e) {
+                        //用户可能手动端口连接
+                        throw new CloseException();
                     }
                 }, throwable -> {
-                    throwable.printStackTrace();
+                    //为 Close异常时 过滤
+                    if (!(throwable instanceof CloseException)) {
+                        try {
+                            this.session.getBasicRemote().sendText(ChatConstant.ERROR);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        } finally {
+                            log.error("调用GPT时出现异常 异常信息:{} ", throwable.getMessage());
+                        }
+                    }
                 });
     }
 

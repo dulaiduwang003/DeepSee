@@ -51,19 +51,7 @@ public class BehaviorCommon {
         return STRUCTURE;
     }
 
-    /**
-     * 更新线上配置
-     *
-     * @param structure the structure
-     */
-    public static void updateOnlineConfig(final BehaviorStructure structure) {
-        STRUCTURE.setAuthor(structure.getAuthor())
-                .setLanguage(structure.getLanguage())
-                .setBotName(structure.getBotName())
-                .setSensitiveWords(structure.getSensitiveWords())
-                .setSensitiveSymbol(structure.getSensitiveSymbol());
 
-    }
 
 
 }

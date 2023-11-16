@@ -41,6 +41,7 @@
     </profiles>
 
     <properties>
+        <!--        版本依赖控制-->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -54,6 +55,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
         <satoken.version>1.37.0</satoken.version>
+        <aliyun.oss.version>3.17.0</aliyun.oss.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -117,6 +119,11 @@
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-redis-jackson</artifactId>
                 <version>${satoken.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun.oss.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

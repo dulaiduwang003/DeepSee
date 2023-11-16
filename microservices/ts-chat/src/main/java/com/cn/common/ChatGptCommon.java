@@ -2,7 +2,6 @@ package com.cn.common;
 
 import com.cn.common.structure.ChatGptStructure;
 import com.cn.configuration.ChatGptDefaultConfiguration;
-import com.cn.constants.ChatConstant;
 import com.cn.utils.RedisUtils;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
@@ -46,8 +45,6 @@ public class ChatGptCommon {
         return new ModelObj()
                 //模型名称
                 .setModelName(model.getModelName())
-                //每日频率
-                .setFrequency(model.getFrequency())
                 //KEY
                 .setKey(keyCistern.get(index));
     }
@@ -57,22 +54,11 @@ public class ChatGptCommon {
      */
     @PostConstruct
     public void init() {
-        final ChatGptStructure value = (ChatGptStructure) redisUtils.getValue(ChatConstant.CONFIG);
-        if (value != null) {
-            STRUCTURE
-                    .setSeniorKeyList(value.getSeniorKeyList())
-                    .setLowLevelKeyList(value.getLowLevelKeyList())
-                    .setModelList(value.getModelList())
-                    .setRequestUrl(value.getRequestUrl())
-                    .setModelList(value.getModelList());
-
-        } else
-            STRUCTURE
-                    .setSeniorKeyList(Arrays.asList(configuration.getSeniorKeyList()))
-                    .setLowLevelKeyList(Arrays.asList(configuration.getLowLevelKeyList()))
-                    .setModelList(configuration.getModelList())
-                    .setRequestUrl(configuration.getRequestUrl());
-
+        STRUCTURE
+                .setSeniorKeyList(Arrays.asList(configuration.getSeniorKeyList()))
+                .setLowLevelKeyList(Arrays.asList(configuration.getLowLevelKeyList()))
+                .setModelList(configuration.getModelList())
+                .setRequestUrl(configuration.getRequestUrl());
     }
 
     /**
@@ -84,19 +70,6 @@ public class ChatGptCommon {
         return STRUCTURE;
     }
 
-    /**
-     * 更新线上配置
-     *
-     * @param structure the structure
-     */
-    public static void updateOnlineConfig(final ChatGptStructure structure) {
-        STRUCTURE
-                .setSeniorKeyList(structure.getSeniorKeyList())
-                .setLowLevelKeyList(structure.getLowLevelKeyList())
-                .setRequestUrl(structure.getRequestUrl())
-                .setModelList(structure.getModelList());
-    }
-
 
     @Data
     @Accessors(chain = true)
@@ -106,7 +79,6 @@ public class ChatGptCommon {
 
         private String modelName;
 
-        private Integer frequency;
 
     }
 

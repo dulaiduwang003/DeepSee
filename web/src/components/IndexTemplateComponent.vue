@@ -67,9 +67,10 @@ onMounted(() => {
 }
 
 .container {
-  padding-top: 80px;
+  padding-top: 20vh;
   width: 100%;
   box-sizing: border-box;
+  animation: explainAnimation 0.3s;
 }
 
 .model-flex {
@@ -104,4 +105,15 @@ onMounted(() => {
   padding-bottom: 20px;
   color: #414141;
 }
+
+@keyframes explainAnimation {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
 </style>

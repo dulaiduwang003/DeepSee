@@ -7,12 +7,10 @@ import com.cn.constant.EmailConstant;
 import com.cn.constant.UserCacheConstant;
 import com.cn.dto.EmailCodeDto;
 import com.cn.dto.EmailLoginDto;
-import com.cn.entity.TsAvatar;
 import com.cn.entity.TsUser;
 import com.cn.exception.AuthException;
 import com.cn.exception.EmailException;
 import com.cn.exception.LoginException;
-import com.cn.mapper.TsAvatarMapper;
 import com.cn.mapper.TsUserMapper;
 import com.cn.service.AuthService;
 import com.cn.structure.UserInfoStructure;
@@ -39,7 +37,6 @@ public class AuthServiceImpl implements AuthService {
 
     private final TsUserMapper tsUserMapper;
 
-    private final TsAvatarMapper tsAvatarMapper;
 
     private final RedisUtils redisUtils;
 
@@ -73,26 +70,18 @@ public class AuthServiceImpl implements AuthService {
         final TsUser user = tsUserMapper.selectOne(new QueryWrapper<TsUser>().lambda().eq(TsUser::getEmail, dto.getEmail())
                 //加盐
                 .eq(TsUser::getPassword, SaSecureUtil.md5BySalt(dto.getPassword(), SALT_PASSWORD))
-                .select(TsUser::getType, TsUser::getUserId, TsUser::getEmail, TsUser::getOpenId, TsUser::getAvatarId));
+                .select(TsUser::getType, TsUser::getUserId, TsUser::getEmail, TsUser::getOpenId, TsUser::getAvatarUrl));
         if (user == null) {
             //no matching data
             throw new LoginException("账号或密码错误");
         }
-        final TsAvatar tsAvatar = tsAvatarMapper.selectOne(
-                new QueryWrapper<TsAvatar>()
-                        .lambda()
-                        .eq(TsAvatar::getAvatarId, user.getAvatarId())
-                        .select(TsAvatar::getUrl)
-        );
+
         //构建用户缓存数据
         final UserInfoStructure userInfoStructure = new UserInfoStructure()
                 .setEmail(user.getEmail())
                 .setType(user.getType())
-                .setOpenId(user.getOpenId())
-                .setNickName(user.getNickName());
-        if (tsAvatar != null) {
-            userInfoStructure.setAvatar(tsAvatar.getUrl());
-        }
+                .setAvatarUrl(user.getAvatarUrl())
+                .setOpenId(user.getOpenId());
         StpUtil.login(user.getUserId());
         StpUtil.getSession()
                 //设置用户数据缓存

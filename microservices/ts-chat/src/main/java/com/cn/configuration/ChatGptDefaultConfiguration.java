@@ -35,8 +35,6 @@ public class ChatGptDefaultConfiguration {
 
         private Boolean isSeniorModel;
 
-        private Integer frequency;
-
     }
 
 }

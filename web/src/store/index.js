@@ -4,10 +4,12 @@ export default createStore({
     state: {
         //用户数据
         userInfo: undefined,
-        //用户令牌
+        //用户设置
+        userSetting: undefined,
     },
     getters: {
         userInfo: (state) => state.userInfo,
+        userSetting: (state) => state.userSetting,
     },
     mutations: {
         logout(state) {
@@ -17,11 +19,17 @@ export default createStore({
             state.userInfo = info;
             localStorage.setItem("userInfo", JSON.stringify(info));
         },
+        setUserSetting(state, info) {
+            state.userSetting = info;
+            localStorage.setItem("userSetting", JSON.stringify(info));
+        },
         initState(state) {
             let token = localStorage.getItem("token");
             if (token) {
                 let user = localStorage.getItem("userInfo");
+                let setting = localStorage.getItem("userSetting");
                 state.userInfo = JSON.parse(user);
+                state.userSetting = JSON.parse(setting);
             }
         },
     },

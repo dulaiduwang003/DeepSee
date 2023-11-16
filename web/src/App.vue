@@ -6,7 +6,6 @@
 
 </template>
 
-
 <script setup>
 
 import {useStore} from "vuex";
@@ -14,6 +13,40 @@ import NavigationComponent from "@/components/NavigationComponent.vue";
 
 let store = useStore();
 store.commit("initState");
+
+//是否登录
+if (store.getters.userInfo) {
+  //这里需要判断是否拥有配置 如果没有则需要设置默认值
+  let userSetting = store.getters.userSetting;
+  console.log(userSetting)
+  if (!userSetting) {
+    userSetting = {
+      //默认使用第一个模型
+      modelIndex: 0,
+      //默认使用第一个快捷键
+      shortcut: 0,
+      //绘图功能列表
+      drawingList: [
+        {
+          name: "DALL",
+          put: "DALL_PUT",
+          get: "DALL_GET"
+        },
+        {
+          name: "SD",
+          put: "SD_PUT",
+          get: "SD_GET"
+        }
+      ],
+      //绘图坐标
+      drawingIndex: 0
+    }
+    store.commit("setUserSetting", userSetting);
+  }
+
+}
+
+
 </script>
 
 <style>
@@ -106,4 +139,9 @@ main {
     background-color: rgb(186, 156, 241);
   }
 }
+
+.el-dialog__title {
+  color: white !important;
+}
+
 </style>

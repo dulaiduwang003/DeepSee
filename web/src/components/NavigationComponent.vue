@@ -18,8 +18,13 @@
               <img alt="" src="../assets/images/public/recharge.svg">
             </div>
           </div>
+
           <el-avatar :size="30"
-                     :src="store.getters.userInfo.avatar"/>
+                     :src="store.getters.userInfo.avatarUrl
+          ?
+          getDoMain()+store.getters.userInfo.avatarUrl
+          :
+          require('../assets/default_avatar.png')" />
           <!--    更多-->
           <div class="more-div">
             <el-dropdown ref="dropdown" trigger="contextmenu">
@@ -49,6 +54,7 @@
 import {ref} from "vue";
 import store from "@/store";
 import AuthDialogComponent from "@/components/auth/AuthDialogComponent.vue";
+import {getDoMain} from "@/utils/Utils";
 
 const dropdown = ref();
 

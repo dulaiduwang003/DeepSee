@@ -10,4 +10,6 @@ public interface ChatConstant {
 
     String BEHAVIOR = "BEHAVIOR_GPT_CONFIG";
 
+    String ERROR = "ø";
+
 }

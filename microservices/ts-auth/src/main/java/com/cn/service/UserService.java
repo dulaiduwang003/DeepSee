@@ -1,6 +1,7 @@
 package com.cn.service;
 
 import com.cn.vo.UserInfoVo;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
 
@@ -11,4 +12,12 @@ public interface UserService {
      * @return the current user info
      */
     UserInfoVo getCurrentUserInfo();
+
+
+    /**
+     * Upload avatar.
+     *
+     * @param file the file
+     */
+    void uploadAvatar(MultipartFile file);
 }
