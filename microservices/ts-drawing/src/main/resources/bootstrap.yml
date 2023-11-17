@@ -25,22 +25,4 @@ spring:
           group: DEFAULT_GROUP
           refresh: true
 
-# 参数配置
-config:
-  #dall
-  dall:
-    requestUrl: 'https://api.openai-proxy.com/v1'
-    keyList: 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
-  #sd
-  sd:
-    requestUrl: 'http://sd.hdmedia.net.cn:7860/sdapi/v1'
-    model-list:
-      - modelName: 'AWPortrait_v1.2.safetensors'
-        modelText: '海报杂志_AWPortrait'
 
-      - modelName: 'revAnimated_v1.2.2.safetensors'
-        modelText: '动漫_RevAnimated'
-    # 采样方法列
-    sampler-list: Euler a,Euler,LMS,Heun,DPM2,DPM2 a
-    # 迭代列
-    step-list: 20,40,60,80,100
