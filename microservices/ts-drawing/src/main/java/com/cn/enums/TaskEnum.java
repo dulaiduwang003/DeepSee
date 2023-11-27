@@ -2,9 +2,9 @@ package com.cn.enums;
 
 public enum TaskEnum {
 
-    DALL,
-    MJ,
-    SD;
+    DALL_2_GENERATE,
+
+    SD_GENERATE;
 
 
 }

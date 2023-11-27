@@ -19,6 +19,6 @@ public class SdDefaultConfiguration {
 
     private List<String> samplerList;
 
-    private List<Integer> stepsList;
+    private SdStructure.Steps steps;
 
 }

@@ -21,25 +21,15 @@ if (store.getters.userInfo) {
   console.log(userSetting)
   if (!userSetting) {
     userSetting = {
-      //默认使用第一个模型
+      //默认使用第一个
       modelIndex: 0,
-      //默认使用第一个快捷键
+      //默认使用第一个
       shortcut: 0,
-      //绘图功能列表
-      drawingList: [
-        {
-          name: "DALL",
-          put: "DALL_PUT",
-          get: "DALL_GET"
-        },
-        {
-          name: "SD",
-          put: "SD_PUT",
-          get: "SD_GET"
-        }
-      ],
-      //绘图坐标
-      drawingIndex: 0
+      //默认使用Name
+      chatBotName: 'Aurora',
+      //默认Drawing昵称
+      drawingBotName: 'NorthPole'
+
     }
     store.commit("setUserSetting", userSetting);
   }
@@ -59,6 +49,7 @@ if (store.getters.userInfo) {
   letter-spacing: 1px;
   color: var(--el-text-color-primary);
   line-height: 1.6;
+  font-family: SF,emoji
 }
 
 ::-webkit-scrollbar {
@@ -69,13 +60,13 @@ if (store.getters.userInfo) {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: white;
+  background: #202020FF;
 }
 
 ::-webkit-scrollbar-track {
   /* box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); */
   border-radius: 0;
-  background: white;
+  background: #202020FF;
   display: block;
 }
 
@@ -85,6 +76,11 @@ if (store.getters.userInfo) {
   font-display: swap;
 }
 
+@font-face {
+  font-family: SF;
+  src: url(@/assets/fonts/medium.otf);
+}
+
 html, body {
   padding: 0;
   margin: 0;
@@ -92,7 +88,7 @@ html, body {
 
 main {
   flex: 1;
-  background-color: #ffffff;
+  background-color: #202020FF
 }
 
 * {
@@ -106,7 +102,7 @@ main {
   background: rgb(166, 129, 236);
   width: 15px;
   height: 15px;
-  border-color: #464646;
+  border-color: #2A2A2AFF;
   border-radius: 50%;
 }
 
@@ -131,7 +127,7 @@ main {
   80%,
   100% {
     transform: scale(0);
-    background-color: #f9f9f9;
+    background-color: #2A2A2AFF;
   }
 
   40% {

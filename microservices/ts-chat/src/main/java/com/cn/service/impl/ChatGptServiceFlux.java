@@ -19,15 +19,13 @@ import reactor.core.publisher.Flux;
 @RequiredArgsConstructor
 public class ChatGptServiceFlux extends OperationAbstract<ChatGptModel> {
 
-
-    private final WebClient.Builder webClient;
-
     @Override
     protected FluxOutcome establishConnectionWeb(final ChatGptModel obj, final int modelIndex) {
+
         //获取当前指向模型
         final ChatGptCommon.ModelObj modelObj = ChatGptCommon.pollGetKey(modelIndex);
 
-        final Flux<String> stringFlux = webClient.baseUrl(ChatGptCommon.STRUCTURE.getRequestUrl())
+        final Flux<String> stringFlux =  WebClient.builder().baseUrl(ChatGptCommon.STRUCTURE.getRequestUrl())
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + modelObj.getKey()).build()
                 .post()
                 .uri("/chat/completions")

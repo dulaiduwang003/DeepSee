@@ -15,7 +15,7 @@ public class SdParamVo implements Serializable {
 
     private List<String> samplerList;
 
-    private List<Integer> stepsList;
+    private SdStructure.Steps steps;
 
 
 }

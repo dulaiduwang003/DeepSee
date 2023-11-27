@@ -8,7 +8,6 @@ import store from "@/store";
 
 
 const emits = defineEmits(['change-status-event', 'on-close']);
-
 /**
  * 跳转注册
  */

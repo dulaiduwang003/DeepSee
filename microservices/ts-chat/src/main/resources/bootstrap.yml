@@ -1,5 +1,5 @@
 spring:
-  cloud: # 注册中心配置
+  cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
@@ -19,3 +19,4 @@ spring:
         shared-configs[3]:
           data-id: chat-config.yml
           group: DEFAULT_GROUP
+

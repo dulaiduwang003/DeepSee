@@ -2,28 +2,23 @@ import request from "@/utils/Request";
 
 
 /**
- *   发布Dall绘图任务
- */
-export function pushDallTask(data) {
-    return request({
-        url: '/drawing-api/drawing/push/dall/task',
-        method: 'POST',
-        data
-    })
-}
-
-
-/**
- *   发布SD生图任务
+ *   发布SD任务
  */
 export function pushSdTask(data) {
     return request({
-        url: '/drawing-api/drawing/push/sd/task',
+        url: '/drawing-api/sd/push/task',
         method: 'POST',
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
         data: data
+    })
+}
+
+/**
+ *   获取任务执行状态
+ */
+export function getSdTask(data) {
+    return request({
+        url: '/drawing-api/sd/get/task/'+data,
+        method: 'GET'
     })
 }
 
@@ -34,18 +29,8 @@ export function pushSdTask(data) {
  */
 export function getSdParam() {
     return request({
-        url: '/drawing-api/drawing/get/sd/param',
+        url: '/drawing-api/sd/get/param',
         method: 'GET'
     })
 }
 
-
-/**
- *   获取任务结果
- */
-export function getDallTask() {
-    return request({
-        url: '/drawing-api/drawing/get/task',
-        method: 'GET'
-    })
-}

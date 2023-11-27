@@ -6,10 +6,10 @@ package com.cn.constant;
 public interface DrawingStatusConstant {
 
 
+    Integer BUILD_FAIL = -1;
     Integer BUILDING = 0;
+    Integer PREVIEW = 1;
+    Integer BUILD_SUCCEED = 2;
 
-    Integer BUILD_SUCCEED = 1;
-
-    Integer BUILD_FAIL = 2;
 
 }

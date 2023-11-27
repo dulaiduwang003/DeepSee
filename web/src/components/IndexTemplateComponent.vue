@@ -55,14 +55,14 @@ onMounted(() => {
 }
 
 .container-data {
-  background-color: rgba(216, 218, 250, 0.29);
+  background-color: #252525;
   padding: 10px 15px;
   border-radius: 8px;
   width: 260px;
   font-size: 13px;
-  height:63px;
+  height: 63px;
   text-align: left;
-  color: #5b5b5b;
+  color: #cccccc;
 
 }
 
@@ -81,7 +81,7 @@ onMounted(() => {
 }
 
 .title {
-  color: #4a4a4a;
+  color: #ffffff;
   font-size: 28px;
   font-weight: 550;
   padding-top: 20px
@@ -89,12 +89,12 @@ onMounted(() => {
 
 .prompt {
   font-size: 15px;
-  color: #626262;
+  color: #dadada;
   font-weight: 550
 }
 
 .grid {
-  padding-top: 120px;
+  padding-top: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -103,7 +103,8 @@ onMounted(() => {
 
 .grid-padding {
   padding-bottom: 20px;
-  color: #414141;
+  color: #ffffff;
+  font-weight: 550;
 }
 
 @keyframes explainAnimation {

@@ -15,7 +15,7 @@ public class TaskResultVo implements Serializable {
 
     private String prompt;
 
-    private String response;
+    private Object extra;
 
 
 }

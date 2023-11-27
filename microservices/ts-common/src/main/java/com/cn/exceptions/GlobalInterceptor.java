@@ -52,7 +52,6 @@ public class GlobalInterceptor {
             return Result.error(allErrors.get(0).getDefaultMessage());
         }
         log.warn("服务出现了未被拦截异常信息 信息:{} 位置:{}", e.getMessage(), e.getClass());
-        e.printStackTrace();
         return Result.error(e.getMessage());
     }
 }

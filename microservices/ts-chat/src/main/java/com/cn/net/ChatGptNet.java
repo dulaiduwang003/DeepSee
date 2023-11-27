@@ -26,12 +26,9 @@ import java.util.List;
 @Service
 public class ChatGptNet {
 
-    private Session session;
-
     private static ChatGptServiceFlux chatGptServiceFlux;
-
     private static ChatGptUtil chatGptUtil;
-
+    private Session session;
 
     @OnOpen
     public void onOpen(final Session session) {

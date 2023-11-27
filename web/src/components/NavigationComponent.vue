@@ -87,8 +87,8 @@ const handleCloseDialog = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
-  box-shadow: 0 4px 4px rgba(218, 209, 209, 0.25);
+  background-color: #272727;
+  box-shadow: 0 4px 4px rgba(39, 39, 39, 0.68);
 }
 
 .flex-wrapper-model {
@@ -109,13 +109,14 @@ const handleCloseDialog = () => {
 
 .conversation-div {
   margin-right: 20px;
-  background-color: #F2F3F5;
+  background-color: #4A4A4AFF;
   font-size: 13px;
   border-radius: 20px;
   padding: 0 5px;
   display: flex;
   justify-content: space-between;
-  align-items: center
+  align-items: center;
+  color: white;
 }
 
 .conversation-text {
@@ -162,6 +163,7 @@ const handleCloseDialog = () => {
   justify-content: center;
   align-items: center;
   font-family: SmileySans, serif;
+  color: white;
 }
 
 .logo-wrapper span {

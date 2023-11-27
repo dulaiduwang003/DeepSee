@@ -24,5 +24,3 @@ spring:
           data-id: oss-config.yml
           group: DEFAULT_GROUP
           refresh: true
-
-

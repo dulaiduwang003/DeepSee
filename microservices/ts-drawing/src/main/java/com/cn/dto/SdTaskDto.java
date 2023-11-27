@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 添加图生图
@@ -17,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @SuppressWarnings("all")
 public class SdTaskDto {
 
-    private MultipartFile images;
+    private String images;
 
     @NotBlank(message = "提示词不能为空")
     private String prompt;

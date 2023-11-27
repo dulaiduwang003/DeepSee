@@ -14,7 +14,7 @@ public class SdStructure implements Serializable {
 
     private List<SdModel> modelList;
 
-    private List<Integer> stepsList;
+    private Steps steps;
 
     private List<String> samplerList;
 
@@ -25,6 +25,16 @@ public class SdStructure implements Serializable {
         private String modelName;
 
         private String modelText;
+    }
+
+
+    @Data
+    @Accessors(chain = true)
+    public static class Steps{
+
+        private Integer min;
+
+        private Integer max;
     }
 
 }

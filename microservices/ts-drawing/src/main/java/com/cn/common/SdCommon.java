@@ -23,7 +23,7 @@ public class SdCommon {
         STRUCTURE
                 .setModelList(configuration.getModelList())
                 .setSamplerList(configuration.getSamplerList())
-                .setStepsList(configuration.getStepsList())
+                .setSteps(configuration.getSteps())
                 .setRequestUrl(configuration.getRequestUrl());
         System.out.println(STRUCTURE);
     }
