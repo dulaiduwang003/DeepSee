@@ -42,14 +42,5 @@ public class DallCommon {
                 .setRequestUrl(configuration.getRequestUrl());
     }
 
-    /**
-     * 获取配置
-     *
-     * @return the config
-     */
-    public static DallStructure getConfig() {
-        return STRUCTURE;
-    }
-
 
 }

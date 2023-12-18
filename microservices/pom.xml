@@ -22,23 +22,6 @@
         <module>ts-drawing</module>
     </modules>
 
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <spring.profiles.active>dev</spring.profiles.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <spring.profiles.active>prod</spring.profiles.active>
-            </properties>
-        </profile>
-    </profiles>
 
     <properties>
         <!--        版本依赖控制-->
@@ -56,13 +39,37 @@
         <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
         <satoken.version>1.37.0</satoken.version>
         <aliyun.oss.version>3.17.0</aliyun.oss.version>
+        <snaowflake.version>2.5.0</snaowflake.version>
+        <redisson.version>3.20.1</redisson.version>
+        <alipay.sdk.version>4.35.107.ALL</alipay.sdk.version>
+        <zxing.version>3.3.0</zxing.version>
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>${alipay.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.ipokerface</groupId>
+                <artifactId>snowflake-id-generator</artifactId>
+                <version>${snaowflake.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>

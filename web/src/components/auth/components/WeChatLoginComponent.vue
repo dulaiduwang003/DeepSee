@@ -5,7 +5,7 @@
 <template>
   <div class="wechat-login">
     <div>
-      <img :src="require('../../../assets/test.jpg')" alt="二维码"
+<!--      <img :src="require('../../../assets/test.jpg')" alt="二维码"-->
       />
       <div class="wechat-login-prompt">打开微信扫一扫快速注册/登录</div>
     </div>

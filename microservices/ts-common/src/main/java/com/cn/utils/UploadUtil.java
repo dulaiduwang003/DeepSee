@@ -56,7 +56,7 @@ public class UploadUtil {
 
             String filePath = path + "/" + fileName;
             ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentType("image/jpg");
+            objectMetadata.setContentType("image/png");
             ossClient.putObject(bucketName, filePath, inputStream, objectMetadata);
             return "/" + filePath;
 
@@ -72,7 +72,7 @@ public class UploadUtil {
                 .build(endpoint, accessKey, secretKey);
         try {
             // 生成随机的图片名称
-            String fileName = path + "/" + UUID.randomUUID().toString() + ".jpg";
+            String fileName = path + "/" + UUID.randomUUID().toString() + ".png";
 
 
             // 通过URL下载网络图片到本地

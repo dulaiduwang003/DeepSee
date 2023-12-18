@@ -25,11 +25,16 @@ public class ChatGptUtil {
             JSONObject jsonObject = JSONObject.parseObject(data);
             JSONArray choices = jsonObject.getJSONArray("choices");
             if (choices != null && !choices.isEmpty()) {
-                JSONObject delta = choices.getJSONObject(0).getJSONObject("delta");
-                if (delta.containsKey("content")) {
-                    return delta.getString("content");
+                final JSONObject dataSet = choices.getJSONObject(0);
+                if (dataSet.containsKey("delta")) {
+                    JSONObject delta = dataSet.getJSONObject("delta");
+                    if (delta.containsKey("content")) {
+                        return delta.getString("content");
+                    }
+                } else {
+                    final JSONObject message = dataSet.getJSONObject("message");
+                    return message.getString("content");
                 }
-
             }
         }
         return "";

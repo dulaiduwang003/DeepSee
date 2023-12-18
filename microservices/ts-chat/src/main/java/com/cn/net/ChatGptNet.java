@@ -2,26 +2,25 @@ package com.cn.net;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cn.constants.ChatConstant;
-import com.cn.enums.EnvEnum;
+import com.cn.dto.DialogueParameterDto;
+import com.cn.enums.DialogueEnum;
+
 import com.cn.exception.CloseException;
-import com.cn.model.ChatGptModel;
 import com.cn.service.impl.ChatGptServiceFlux;
 import com.cn.utils.ChatGptUtil;
 import com.cn.utils.SpringContextUtil;
 import jakarta.websocket.*;
-import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * The type Chat net.
  */
 @Slf4j
-@ServerEndpoint(value = "/chat/{index}/{env}/{token}", subprotocols = {"protocol"})
+@ServerEndpoint(value = "/chat/{token}", subprotocols = {"protocol"})
 @SuppressWarnings("all")
 @Service
 public class ChatGptNet {
@@ -30,8 +29,14 @@ public class ChatGptNet {
     private static ChatGptUtil chatGptUtil;
     private Session session;
 
+    private int maxSize = 10 * 1024 * 1024;
+
     @OnOpen
     public void onOpen(final Session session) {
+        if (session.getMaxTextMessageBufferSize() <= 8192) {
+            session.setMaxBinaryMessageBufferSize(maxSize);
+            session.setMaxTextMessageBufferSize(maxSize);
+        }
         try {
             assert session.getId() != null;
         } catch (Exception e) {
@@ -53,10 +58,10 @@ public class ChatGptNet {
      * @param env     the env
      */
     @OnMessage
-    public void onMessage(final String message, final @PathParam("index") Integer index, final @PathParam("env") String env) {
-        final List<ChatGptModel.Messages> messages = JSONObject.parseArray(message, ChatGptModel.Messages.class);
+    public void onMessage(final String parameter) {
+        final DialogueParameterDto dto = JSONObject.parseObject(parameter, DialogueParameterDto.class);
 
-        final ChatGptServiceFlux.FluxOutcome action = chatGptServiceFlux.action(new ChatGptModel().setMessages(messages), index, EnvEnum.fromString(env));
+        final ChatGptServiceFlux.FluxOutcome action = chatGptServiceFlux.action(dto, DialogueEnum.fromString(dto.getType()));
 
         action.getFlux().doFinally(signal -> handleWebSocketCompletion())
                 .subscribe(data -> {
@@ -75,6 +80,7 @@ public class ChatGptNet {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         } finally {
+                            throwable.printStackTrace();
                             log.error("调用GPT时出现异常 异常信息:{} ", throwable.getMessage());
                         }
                     }

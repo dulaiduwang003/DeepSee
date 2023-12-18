@@ -36,7 +36,14 @@ public class SdTaskDto {
     @NotBlank(message = "采样方法不能为空")
     private String sampler_index;
 
+    @NotBlank(message = "外挂模型不能为空")
+    private String sd_vae;
+
     private String negative_prompt;
+
+    private String mask;
+
+    private Double denoising_strength;
 
 
 }

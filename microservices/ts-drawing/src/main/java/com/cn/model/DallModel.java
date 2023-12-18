@@ -3,19 +3,21 @@ package com.cn.model;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-
 @Data
 @Accessors(chain = true)
-public class DallModel implements Serializable {
+@SuppressWarnings("all")
+public class DallModel {
 
-    private String model = "dall-e-3";
+    private String model = "dall-e-2";
 
     private String prompt;
 
-//    private String size = "512x512";
+    private String size;
 
-//    private String quality = "standard";
-//
-//    private Integer n = 1;
+    private String mask;
+
+    private String image;
+
+    private Integer n = 1;
+
 }

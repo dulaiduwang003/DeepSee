@@ -38,7 +38,7 @@ public final class RedisUtils {
     }
 
     public Long getExpire(final String key) {
-      return redisTemplate.getExpire(key);
+        return redisTemplate.getExpire(key);
     }
 
 

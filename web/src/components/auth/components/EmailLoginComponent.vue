@@ -1,48 +1,90 @@
 <script setup>
 import {defineEmits, ref} from 'vue';
-import {Platform, UserFilled} from "@element-plus/icons-vue";
 import {ElMessage, ElNotification} from "element-plus";
-import {emailLogin, getCurrentUserInfo} from "@/api/auth";
+import {emailLogin, getCurrentUserInfo, sendEmailCode} from "@/api/auth";
 import {validateEmail} from "@/utils/Utils";
 import store from "@/store";
 
 
 const emits = defineEmits(['change-status-event', 'on-close']);
-/**
- * 跳转注册
- */
-const callParentOnChangeStatusMethod = (index) => {
-  emits('change-status-event', index);
-};
 
 //提交表单
 const form = ref({
   email: '',
-  password: '',
   code: ''
 })
 
 //登录加载按钮
 const btnLoad = ref(false)
 
+//获取验证码按钮OBJ
+const btnCodeObj = ref({
+  text: '获取验证码',
+  disabled: false,
+})
+
+//验证码倒计时控制器
+const countdown = ref(null)
+
+/**
+ * 获取验证码
+ * @returns {Promise<void>}
+ */
+const handleGetCaptcha = async () => {
+  const {email} = form.value;
+  if (!email) {
+    ElMessage.warning("注册邮箱不能为空");
+    return
+  }
+  if (!validateEmail(email)) {
+    ElMessage.warning("注册邮箱地址格式不正确");
+    return
+  }
+  let seconds = 120;
+  try {
+    btnCodeObj.value.text = "正在发送中";
+    btnCodeObj.value.disabled = true
+    //发送验证码
+    await sendEmailCode({email});
+    ElMessage.success("邮箱验证码已发送 注意查收");
+  } catch (e) {
+    btnCodeObj.value.text = "获取验证码";
+    btnCodeObj.value.disabled = false
+    return
+  }
+  countdown.value = setInterval(() => {
+    if (seconds === 0) {
+      clearInterval(countdown.value);
+      countdown.value = null;
+      btnCodeObj.value.disabled = false;
+      btnCodeObj.value.text = "获取验证码";
+    } else {
+      seconds--;
+      btnCodeObj.value.text = `${seconds}` + "后获取";
+    }
+  }, 1000);
+
+
+}
+
 /**
  * 登录
  */
 const handleLogin = async () => {
-  const {email, password} = form.value;
-  if (!email || !password) {
-    ElMessage.warning("登录邮箱或密码不能为空");
+  const {email, code} = form.value;
+  if (!email || !code) {
+    ElMessage.warning("登录邮箱或验证码不能为空");
     return
   }
   if (!validateEmail(email)) {
-    ElMessage.warning("登录邮箱地址格式不正确");
+    ElMessage.warning("登录");
     return
   }
   try {
     //按钮动画
     btnLoad.value = true
     //执行登录
-    const {data} = await emailLogin({email, password});
+    const {data} = await emailLogin({email, code});
     //设置身份令牌
     localStorage.setItem("token", data);
     //获取用户信息数据
@@ -67,35 +109,35 @@ const handleLogin = async () => {
   <el-form ref="formRef" size="large">
     <el-form-item prop="email">
       <el-input
+          size="large"
+          class="email "
           v-model="form.email"
           type="text"
           clearable
-          placeholder="请输入邮箱"
+          placeholder="登录邮箱"
           autocomplete="“off”"
       >
-        <template #prefix>
-          <el-icon :size="16" color="#909090">
-            <UserFilled/>
-          </el-icon>
-        </template>
       </el-input>
     </el-form-item>
-    <el-form-item prop="password">
-      <el-input
-          v-model="form.password"
-          type="password"
-          placeholder="请输入密码"
-          show-password
-          autocomplete="“off”"
-      >
-        <template #prefix>
-          <el-icon :size="16" color="#909090">
-            <Platform/>
-          </el-icon>
-        </template>
-      </el-input>
-      <div class="forgot-password" @click="callParentOnChangeStatusMethod(4)">
-        忘记密码
+    <el-form-item prop="code">
+      <div class="code-model">
+        <el-input
+            size="large"
+            class="inputBox code"
+            v-model="form.code"
+            type="text"
+            placeholder="邮箱验证码"
+            clearable
+            autocomplete="“off”"
+            maxlength="8"
+        >
+        </el-input>
+        <div class="code-btn" @click="handleGetCaptcha" v-if="!btnCodeObj.disabled">
+          {{ btnCodeObj.text }}
+        </div>
+        <div class="code-btn-disable" v-else>
+          {{ btnCodeObj.text }}
+        </div>
       </div>
     </el-form-item>
     <el-form-item>
@@ -104,48 +146,98 @@ const handleLogin = async () => {
           type="primary"
           size="large"
           class="btn-submit"
-          @click="handleLogin"
-      >
-        快速登录
+          @click="handleLogin">
+        登录后体验全部功能
       </el-button>
     </el-form-item>
   </el-form>
-  <div class="to-enroll-div">暂无账号?
-    <text @click="callParentOnChangeStatusMethod(3)">注册新用户</text>
-  </div>
 </template>
 
 <style scoped>
+.email {
+  font-size: 14px;
+  height: 45px;
+  font-family: SF;
+}
+
+.code-model {
+  display: flex;
+  align-items: center;
+  flex: 1
+}
+
+.code {
+  width: 70%;
+  font-size: 14px;
+  height: 45px;
+  font-family: SF;
+}
+
+.code-btn {
+  color: #b0b0b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  height: 45px;
+  background-color: #F1F3F5;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  font-size: 14px
+}
+
+.code-btn-disable {
+
+  color: #b0b0b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  height: 45px;
+  background-color: #F1F3F5;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  font-size: 14px
+}
+
+.code-btn:hover {
+  color: #783CFA;
+  font-weight: 550;
+  cursor: pointer;
+}
+
 .btn-submit {
+  font-family: SF;
+  font-size: 14px;
+  margin-top: 35px;
   width: 100%;
-  background-color: #7365FF;
-  border: none
+  background: linear-gradient(90deg, rgba(93, 81, 254, 0.62) 1%, rgba(160, 73, 247, 0.55) 30.31%, rgba(203, 77, 164, 0.56) 66.24%, rgba(255, 128, 128, 0.57) 97.8%);;
+  border: none;
+  letter-spacing: 2px;
+}
+
+>>> .inputBox > .el-input__wrapper {
+  background-color: #F1F3F5;
+  outline: none;
+  box-shadow: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0
+}
+
+
+.btn-submit {
+  background: linear-gradient(90deg, rgba(93, 81, 254, 0.62) 1%, rgba(160, 73, 247, 0.55) 30.31%, rgba(203, 77, 164, 0.56) 66.24%, rgba(255, 128, 128, 0.57) 97.8%);;
 }
 
 .btn-submit:hover,
 .btn-submit:focus,
 .btn-submit:active {
-  background-color: #5044c0;
+  background: linear-gradient(90deg, rgba(93, 81, 254, 0.62) 1%, rgba(160, 73, 247, 0.55) 30.31%, rgba(203, 77, 164, 0.56) 66.24%, rgba(255, 128, 128, 0.57) 97.8%);;
   outline: 0;
-}
-
-.to-enroll-div {
-  font-size: 12px;
-  text-align: center;
-  margin-top: 50px;
-  cursor: pointer;
 }
 
 .to-enroll-div text {
   color: #7365FF;
-}
-
-.forgot-password {
-  text-align: right;
-  width: 100%;
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 

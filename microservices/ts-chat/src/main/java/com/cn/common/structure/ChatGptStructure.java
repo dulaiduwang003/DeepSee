@@ -1,6 +1,6 @@
 package com.cn.common.structure;
 
-import com.cn.configuration.ChatGptDefaultConfiguration;
+import com.cn.configuration.ChatGptConfiguration;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -17,6 +17,9 @@ public class ChatGptStructure implements Serializable {
 
     private List<String> seniorKeyList;
 
-    private List<ChatGptDefaultConfiguration.Model> modelList;
+    private ChatGptConfiguration.ImageRecognitionConfig imageRecognitionConfig;
+
+    private List<ChatGptConfiguration.Model> modelList;
+
 
 }

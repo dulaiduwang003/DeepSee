@@ -1,7 +1,6 @@
 package com.cn.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,9 +14,9 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class EmailLoginDto {
 
-    @NotBlank(message = " mailbox cannot be empty")
+    @NotBlank(message = "登录邮箱不能为空")
     private String email;
 
-    @Size(min = 1, max = 20, message = "login password is in the wrong format")
-    private String password;
+    @NotBlank(message = "验证码不正确")
+    private String code;
 }

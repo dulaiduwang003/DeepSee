@@ -1,15 +1,12 @@
 <template>
-  <NavigationComponent/>
-  <main>
-    <router-view/>
-  </main>
-
+  <!--  左侧导航栏-->
+  <left-hand-navigation-pane/>
 </template>
 
 <script setup>
 
 import {useStore} from "vuex";
-import NavigationComponent from "@/components/NavigationComponent.vue";
+import LeftHandNavigationPane from "@/components/navigationBar/LeftHandNavigationPane.vue";
 
 let store = useStore();
 store.commit("initState");
@@ -18,18 +15,24 @@ store.commit("initState");
 if (store.getters.userInfo) {
   //这里需要判断是否拥有配置 如果没有则需要设置默认值
   let userSetting = store.getters.userSetting;
-  console.log(userSetting)
   if (!userSetting) {
     userSetting = {
       //默认使用第一个
       modelIndex: 0,
       //默认使用第一个
-      shortcut: 0,
+      shortcutIndex: 0,
       //默认使用Name
-      chatBotName: 'Aurora',
-      //默认Drawing昵称
-      drawingBotName: 'NorthPole'
-
+      chatBotName: 'STAR',
+      //上下文
+      memorySize: 4000,
+      //速率
+      outputRate: 10,
+      //记忆行数
+      rowSize: 4,
+      //前置预设词
+      presetWordIssue: '',
+      presetWordAnswer: '',
+      isPreset: false
     }
     store.commit("setUserSetting", userSetting);
   }
@@ -49,24 +52,55 @@ if (store.getters.userInfo) {
   letter-spacing: 1px;
   color: var(--el-text-color-primary);
   line-height: 1.6;
-  font-family: SF,emoji
+  font-family: SF
+}
+.el-table{
+  border-radius: 8px;
+}
+.el-table thead{
+  color: #565656 !important;
+}
+.el-scrollbar{
+  font-size: 13px;
 }
 
+.el-table .cell{
+  text-align: center;
+}
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
+.el-table .warning-row {
+  --el-table-tr-bg-color: #f0f1f8 !important;
+
+}
+
+.el-table .success-row {
+  --el-table-tr-bg-color: #FDF6EC !important;
+}
+
+.el-loading-spinner .path {
+  stroke: #a143ff !important;
+}
+
+
+.el-loading-spinner .el-loading-text {
+  padding-top: 10px;
+  color: #949494 !important;
+}
+
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: #202020FF;
+  background: #b0b0b0;
 }
 
 ::-webkit-scrollbar-track {
   /* box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); */
   border-radius: 0;
-  background: #202020FF;
+  background: #F2F2F2;
   display: block;
 }
 
@@ -86,9 +120,13 @@ html, body {
   margin: 0;
 }
 
+:deep(.el-overlay) {
+  background-color: rgba(0, 0, 0, 0.89);
+}
+
 main {
   flex: 1;
-  background-color: #202020FF
+  background-color: #F2F2F2;
 }
 
 * {
@@ -102,7 +140,7 @@ main {
   background: rgb(166, 129, 236);
   width: 15px;
   height: 15px;
-  border-color: #2A2A2AFF;
+  border-color: #F2F2F2;
   border-radius: 50%;
 }
 
@@ -127,7 +165,7 @@ main {
   80%,
   100% {
     transform: scale(0);
-    background-color: #2A2A2AFF;
+    background-color: #F2F2F2;
   }
 
   40% {
@@ -139,5 +177,18 @@ main {
 .el-dialog__title {
   color: white !important;
 }
+
+.el-dialog {
+  box-shadow: none !important;
+}
+
+.el-dialog__header {
+  padding: 0 !important;
+}
+
+.el-dialog__body {
+  padding: 0 !important;
+}
+
 
 </style>

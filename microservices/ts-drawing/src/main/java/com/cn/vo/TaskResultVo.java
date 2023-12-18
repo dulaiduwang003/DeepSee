@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 public class TaskResultVo implements Serializable {
 
-    private Integer status;
+    private String status;
 
     private String image;
 

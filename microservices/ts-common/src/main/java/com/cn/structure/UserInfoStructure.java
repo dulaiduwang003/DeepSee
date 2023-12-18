@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * The type User info structure.
@@ -20,8 +21,10 @@ public class UserInfoStructure implements Serializable {
 
     private String email;
 
-    private String avatarUrl;
+    private String avatar;
 
     private String type;
+
+    private LocalDateTime expirationTime;
 
 }

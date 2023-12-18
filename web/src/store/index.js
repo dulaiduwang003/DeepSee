@@ -6,6 +6,7 @@ export default createStore({
         userInfo: undefined,
         //用户设置
         userSetting: undefined,
+        theme: undefined,
     },
     getters: {
         userInfo: (state) => state.userInfo,

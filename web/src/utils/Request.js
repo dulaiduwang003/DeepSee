@@ -23,7 +23,7 @@ function getUrl() {
 function Axios(axiosConfig, customOptions, loadingOptions) {
     const service = axios.create({
         baseURL: getUrl(),
-        timeout: 1000 * 60,
+        timeout: 1000 * 180,
         responseType: 'json'
     });
 

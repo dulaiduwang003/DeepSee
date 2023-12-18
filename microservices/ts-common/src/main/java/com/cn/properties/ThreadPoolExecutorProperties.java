@@ -14,12 +14,12 @@ public class ThreadPoolExecutorProperties {
     /**
      * 核心线程大小
      */
-    private final Integer corePoolSize = 1;
+    private final Integer corePoolSize = 3;
 
     /**
      * 最大线程数
      */
-    private final Integer maximumPoolSize = 1;
+    private final Integer maximumPoolSize = 3;
 
     /**
      * 存活时间

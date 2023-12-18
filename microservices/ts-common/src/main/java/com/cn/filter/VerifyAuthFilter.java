@@ -32,4 +32,5 @@ public class VerifyAuthFilter implements WebMvcConfigurer {
                     return SaResult.error(ExceptionMessages.UNAUTHORIZED_ACCESS);
                 });
     }
+
 }

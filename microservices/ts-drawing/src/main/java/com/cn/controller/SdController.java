@@ -1,6 +1,7 @@
 package com.cn.controller;
 
 import com.cn.dto.SdTaskDto;
+import com.cn.exception.DrawingException;
 import com.cn.msg.Result;
 import com.cn.service.SdService;
 import lombok.RequiredArgsConstructor;
@@ -18,26 +19,35 @@ public class SdController {
     private final SdService sdService;
 
 
+    /**
+     * Gets sd param.
+     *
+     * @return the sd param
+     */
     @GetMapping(value = "/get/param", name = "get the list of SD drawing parameters", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result getSdParam() {
         return Result.data(sdService.getSdParam());
     }
 
 
-    @GetMapping(value = "/get/task/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result getTask(@PathVariable String taskId) {
-        return Result.data(sdService.getDrawingTask(taskId));
-    }
 
 
-    @PostMapping(value = "/push/task", name = "publish an sd drawing task", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Result pushTask(@RequestBody @Validated SdTaskDto dto) {
+
+    /**
+     * Push task result.
+     *
+     * @param dto the dto
+     * @return the result
+     */
+    @PostMapping(value = "/push/generate", name = "publish an sd drawing task", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Result pushGenerateTask(@RequestBody @Validated SdTaskDto dto) {
         try {
             return Result.data(sdService.addSdDrawingTask(dto));
-        } catch (Exception e) {
+        } catch (DrawingException e) {
             return Result.error(e.getMessage());
         }
     }
+
 
 
 }

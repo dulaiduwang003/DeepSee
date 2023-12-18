@@ -5,11 +5,10 @@ package com.cn.constant;
  */
 public interface DrawingStatusConstant {
 
-
-    Integer BUILD_FAIL = -1;
-    Integer BUILDING = 0;
-    Integer PREVIEW = 1;
-    Integer BUILD_SUCCEED = 2;
+    String DISUSE = "DISUSE";
+    String PENDING = "PENDING";
+    String PROCESSING = "PROCESSING";
+    String SUCCEED = "SUCCEED";
 
 
 }

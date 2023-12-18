@@ -20,18 +20,17 @@ public class TsUser {
     @TableId(type = IdType.AUTO)
     private Long userId;
 
+    private String nickName;
+
     private String openId;
 
     private String email;
 
     private String type;
 
-    private String password;
+    private String avatar;
 
-    private String avatarUrl;
-
-
-    private Integer frequency;
+    private LocalDateTime expirationTime;
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createdTime;

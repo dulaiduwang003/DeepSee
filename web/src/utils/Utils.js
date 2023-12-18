@@ -43,8 +43,12 @@ export function getChatCache() {
     return JSON.parse(localStorage.getItem("chat-cache"))
 }
 
-export function getDoMain() {
+export function getOssDoMain() {
     return process.env.VUE_APP_DOMAIN
+}
+
+export function getServiceDoMain() {
+    return process.env.VUE_APP_BASE_API
 }
 
 
@@ -60,14 +64,86 @@ export function getCurrentFormattedTime() {
 }
 
 
-export function setSdDrawingTaskList(list) {
-    localStorage.setItem("sd-drawing-task-list", JSON.stringify(list))
+export function getCurrentZhCnDate(data) {
+    // 获取当前时间戳
+    // 将时间戳转换为 Date 对象
+    const date = new Date(data);
+    // 获取年、月、日、时、分、秒
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+    if (second <= 9) {
+        second = '0' + second
+    }
+    if (minute <= 9) {
+        minute = '0' + minute
+    }
+    if (hour <= 9) {
+        hour = '0' + hour
+    }
+    // 拼接日期字符串
+    // 返回日期字符串
+    return `${year}年${month}月${day}日 ${hour}:${minute}:${second}`;
 }
 
-export function getSdDrawingTaskList() {
-    return JSON.parse(localStorage.getItem("sd-drawing-task-list"))
+export function removalTime(data) {
+    let date = new Date(data);
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    return `${year}-${month}-${day}`;
+
 }
 
-export function removeSdDrawingTask() {
-    localStorage.setItem("sd-drawing-task-list", JSON.stringify([]))
+export const scaleImage = (src, width, height) => {
+    return new Promise((resolve) => {
+        const image = new Image();
+        image.src = src;
+        image.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(image, 0, 0, width, height);
+            resolve(canvas.toDataURL());
+        };
+    })
+};
+
+
+export const getImageOriginSize = (src) => {
+    return new Promise((resolve) => {
+        const image = new Image();
+        image.src = src;
+        image.onload = () => {
+            resolve({
+                width: image.naturalWidth,
+                height: image.naturalHeight
+            });
+        };
+    });
+}
+
+
+export const convertUrlToBase64 = (src) => {
+    return new Promise(resolve => {
+        const img = new Image()
+        img.crossOrigin = ''
+        img.src = src
+        img.onload = function () {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            const ext = img.src.substring(img.src.lastIndexOf('.') + 1).toLowerCase();
+            const dataURL = canvas.toDataURL('image/' + ext);
+            resolve(dataURL);
+        }
+    });
+
 }

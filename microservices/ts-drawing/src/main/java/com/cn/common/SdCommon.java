@@ -25,7 +25,6 @@ public class SdCommon {
                 .setSamplerList(configuration.getSamplerList())
                 .setSteps(configuration.getSteps())
                 .setRequestUrl(configuration.getRequestUrl());
-        System.out.println(STRUCTURE);
     }
 
     /**

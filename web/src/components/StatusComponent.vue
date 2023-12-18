@@ -14,23 +14,15 @@ const props = defineProps({
     type: String,
     default: '空数据',
   },
-  isLogin: {
-    type: Boolean,
-    default: false,
-  },
   color: {
     type: String,
     default: "#CCCCCC",
-  },
-  height: {
-    type: Number,
-    default: 300,
   }
 });
 </script>
 
 <template>
-  <div class="container" :style="{ height: props.height }">
+  <div class="status-container">
     <div class="content">
       <el-icon :size="props.size" :color="props.color">
         <component :is="props.icon"/>
@@ -43,11 +35,16 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.container {
+
+.status-container {
+  cursor: not-allowed;
+  position: absolute;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 300px;
+  align-items: center
 }
 
 .content {

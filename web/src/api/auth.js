@@ -18,28 +18,6 @@ export function sendEmailCode(data) {
         url: '/auth-api/email/send/code', method: 'POST', data
     })
 }
-
-
-/**
- *   注册账号
- */
-export function emailEnroll(data) {
-    return request({
-        url: '/auth-api/auth/email/enroll', method: 'POST', data
-    })
-}
-
-
-/**
- *   找回密码
- */
-export function emailForgot(data) {
-    return request({
-        url: '/auth-api/auth/email/forgot', method: 'POST', data
-    })
-}
-
-
 /**
  *   获取当前登录用户信息
  */
@@ -47,5 +25,36 @@ export function getCurrentUserInfo() {
     return request({
         url: '/auth-api/user/get/userinfo', method: 'GET'
     })
+}
+
+
+/**
+ * 更新头像
+ */
+export function logout() {
+    return request({
+        url: '/auth-api/auth/sign/logout',
+        method: 'POST'
+    })
+}
+
+
+/**
+ *   更新昵称
+ */
+export function uploadNickName(data) {
+    return request({
+        url: '/auth-api/user/upload/nickname',
+        method: 'POST',
+        data
+    })
+}
+
+/**
+ * 更新头像
+ * @returns {string}
+ */
+export function uploadAvatar() {
+    return '/auth-api/user/upload/avatar'
 }
 
